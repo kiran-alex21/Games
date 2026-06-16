@@ -1,0 +1,60 @@
+('C:\\Users\\Kiran '
+ 'Wood\\Documents\\Computing\\Coding_with_python\\Games\\Dice\\build\\Dice-6\\Dice-6.pkg',
+ {'BINARY': True,
+  'DATA': True,
+  'EXECUTABLE': True,
+  'EXTENSION': True,
+  'PYMODULE': True,
+  'PYSOURCE': True,
+  'PYZ': False,
+  'SPLASH': True,
+  'SYMLINK': False},
+ [('pyi-contents-directory _internal', '', 'OPTION'),
+  ('PYZ-00.pyz',
+   'C:\\Users\\Kiran '
+   'Wood\\Documents\\Computing\\Coding_with_python\\Games\\Dice\\build\\Dice-6\\PYZ-00.pyz',
+   'PYZ'),
+  ('struct',
+   'C:\\Users\\Kiran '
+   'Wood\\Documents\\Computing\\Coding_with_python\\Games\\Dice\\build\\Dice-6\\localpycs\\struct.pyc',
+   'PYMODULE'),
+  ('pyimod01_archive',
+   'C:\\Users\\Kiran '
+   'Wood\\Documents\\Computing\\Coding_with_python\\Games\\Dice\\build\\Dice-6\\localpycs\\pyimod01_archive.pyc',
+   'PYMODULE'),
+  ('pyimod02_importers',
+   'C:\\Users\\Kiran '
+   'Wood\\Documents\\Computing\\Coding_with_python\\Games\\Dice\\build\\Dice-6\\localpycs\\pyimod02_importers.pyc',
+   'PYMODULE'),
+  ('pyimod03_ctypes',
+   'C:\\Users\\Kiran '
+   'Wood\\Documents\\Computing\\Coding_with_python\\Games\\Dice\\build\\Dice-6\\localpycs\\pyimod03_ctypes.pyc',
+   'PYMODULE'),
+  ('pyimod04_pywin32',
+   'C:\\Users\\Kiran '
+   'Wood\\Documents\\Computing\\Coding_with_python\\Games\\Dice\\build\\Dice-6\\localpycs\\pyimod04_pywin32.pyc',
+   'PYMODULE'),
+  ('pyiboot01_bootstrap',
+   'C:\\Users\\Kiran '
+   'Wood\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\loader\\pyiboot01_bootstrap.py',
+   'PYSOURCE'),
+  ('pyi_rth_inspect',
+   'C:\\Users\\Kiran '
+   'Wood\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_inspect.py',
+   'PYSOURCE'),
+  ('pyi_rth__tkinter',
+   'C:\\Users\\Kiran '
+   'Wood\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth__tkinter.py',
+   'PYSOURCE'),
+  ('Dice-6',
+   'C:\\Users\\Kiran '
+   'Wood\\Documents\\Computing\\Coding_with_python\\Games\\Dice\\Dice-6.py',
+   'PYSOURCE')],
+ 'python314.dll',
+ True,
+ False,
+ False,
+ [],
+ None,
+ None,
+ None)

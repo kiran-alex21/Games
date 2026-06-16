@@ -1,0 +1,31 @@
+Create A Game Bounce
+
+Window for Game
+- Create tkinter window
+- Add a canvas (background) to work with
+- Keep window open + updating
+
+Ball
+- Create ball class + initiation
+- Create bounce/move function (Change (x, y) depending on last touched edge)
+    - move up
+    - move up + down
+    - bounce off top and bottom
+    - move side to side
+    - bounce off sides
+
+Paddle
+- Create Paddle class + initiation
+- Create control function
+    - left arrow to move left
+    - right arrow to move right
+- create contact function
+    - when ball hits it, ball bounces
+
+End game
+- Ball misses paddle
+- Restart Option
+
+Scoring System
+- Each bounce on paddle +1
+- High Score recorder
