@@ -18,7 +18,7 @@ images_dir = os.path.join(script_dir, "images")
 window = tk.Tk()
 window.config(bg=BGCOLOUR)
 window.title("Rock Paper Scissors")
-window.geometry(f"{WIDTH}x {HEIGHT}")
+window.geometry(f"{WIDTH}x{HEIGHT}")
 
 ##Open images
 rockImg = Image.open(os.path.join(images_dir, "rock.png"))
@@ -50,7 +50,7 @@ resultPht = {
 }
 
 ##Labels
-title = tk.Label(master=window, bg=BGCOLOUR, text="Welcome to Auto Rock Paper Scissors")
+title = tk.Label(master=window, bg=BGCOLOUR, text="Welcome to Rock Paper Scissors")
 instruction = tk.Label(master=window, bg=BGCOLOUR, text="Pick Your Choice! (choose wisely)")
 playerChoice = tk.Label(master=window, bg=BGCOLOUR, text="Your Choice: \n NULL", width=LABELWIDTH)
 playerImg = tk.Label(master=window, bg=BGCOLOUR, image=squarePht, width=LABELWIDTH)
@@ -82,6 +82,8 @@ def determine_winner(P_choice, C_choice):
             return "You Win!"
         elif C_choice == "Scissors":
             return "You Draw"
+    # Fallback in case of unexpected input
+    return "You Draw"
 
 ##Computer choice
 def computer_choice():
@@ -105,9 +107,13 @@ def play_game(choice):
 rock = tk.Button(master=window, image=rockPht, bg=BUTTONCOLOUR, command=lambda: play_game("Rock"))
 paper = tk.Button(master=window, image=paperPht, bg=BUTTONCOLOUR, command=lambda: play_game("Paper"))
 scissors = tk.Button(master=window, image=scissorsPht, bg=BUTTONCOLOUR, command=lambda: play_game("Scissors"))
-rock.image = rockPht
+rock.config(image=rockPht)
+paper.config(image=paperPht)
+scissors.config(image=scissorsPht)
+
+"""rock.image = rockPht
 paper.image = paperPht
-scissors.image = scissorsPht
+scissors.image = scissorsPht"""
 
 ##Display widgets correctly
 title.grid(row=0, column=0, columnspan=3, padx=20, pady=7)
