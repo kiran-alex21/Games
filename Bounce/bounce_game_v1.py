@@ -77,15 +77,16 @@ class Paddle:
 
 # Score Class
 class Score:
-    def __init__(self, canvas, score):
+    def __init__(self, canvas, score, ball):
         self.canvas = canvas
         self.score = score
+        self.ball = ball
         self.highscore = 0
         self.display = self.canvas.create_text(0, 0, fill = "black", text=str(self.score), font=('AtkinsonHyperlegible', '12'))
         self.canvas.move(self.display, 10, 10) # move text
 
     def updateScore(self):
-        pos = ball.canvas.coords(ball.id) # variable for current position of ball
+        pos = self.ball.canvas.coords(ball.id) # variable for current position of ball
         if ball.hit_paddle(pos) == True:
             self.score = self.score + 1
         self.canvas.itemconfig(self.display, text=str(self.score))
@@ -186,7 +187,7 @@ paddle = Paddle(window.canvas, 'purple')
 # Create a ball
 ball = Ball(window.canvas, paddle, 'red')
 #Create Score
-score = Score(window.canvas, 0)
+score = Score(window.canvas, 0, ball)
 # Create Game Over
 gameEnd = GameOver(window.canvas, ball, score)
 
