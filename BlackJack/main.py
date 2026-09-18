@@ -17,9 +17,10 @@ class Deck:
             "J": 10, "Q": 10, "K": 10,
             }
         suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
-        for suit in suits: # creating each card and append it to self.cards
-            for r, v in Ranks_Values.items():
-                self.cards.append(Card(r, suit, v))
+        for suit in suits: # loops for each suit
+            for r, v in Ranks_Values.items(): # loops for each Rank
+                card = Card(r, suit, v) # creating each card
+                self.cards.append(card) # append it to self.cards
 
     def shuffle(self): # return a shuffled deck
         shuffled = random.shuffle(self.cards)
@@ -66,45 +67,73 @@ class Hand:
 
 class BlackjackGame:
     def __init__(self):
-        self.deck = Deck()       # Deck instance
-        self.player_hand = Hand()  # Hand instance
-        self.dealer_hand = Hand()  # Hand instance
+        self.deck = None       # Deck instance
+        self.player_hand = None  # Hand instance
+        self.dealer_hand = None  # Hand instance
 
     def player_turn(self):
         bust = False
         stand = False
         while not bust and not stand: # loop until the player stands or busts
+            current_total = self.player_hand.get_total()
+            print(f"You're current total is {current_total}")
             choice = input("Hit(H) or Stand(S)? ") # ask the player to hit or stand (input or button in pygame later)
-            choice = choice[0]
+            choice = choice[0].upper()
             if choice == "S": # if stand
                 stand = True # break out of the loop
             elif choice == "H": # if hit
-                card = self.deck.deal_card() # deal a card from deck 
-                self.player_hand.add_card(card) # add card to player hand
+                card = self.deck.deal_card() # deal a card from deck
+                if card != None:
+                    self.player_hand.add_card(card) # add card to player hand
+                else:
+                    print("No Cards left")
                 bust = self.player_hand.is_bust() # check for bust after each hit; stop looping if True
 
     def dealer_turn(self):
-        bust = False
-        while (self.dealer_hand.get_total() < 17) and not bust: # loop while dealer total is less than 17
-            card = self.deck.deal_card() # deal a card from self.deck 
-            self.dealer_hand.add_card() # add it to self.dealer_hand
-            bust = self.dealer_hand.is_bust() # loop stops once dealer busts
+        while (self.dealer_hand.get_total() < 17): # loop while dealer total is less than 17
+            card = self.deck.deal_card()
+            if card != None: # deal a card from self.deck 
+                self.dealer_hand.add_card(card) # add it to self.dealer_hand
+            else:
+                print("No Cards left")
 
     def resolve_round(self):
-        # TODO: check if self.player_hand.is_bust() -> dealer wins
-        # TODO: check if self.dealer_hand.is_bust() -> player wins
-        # TODO: otherwise, compare self.player_hand.get_total() vs self.dealer_hand.get_total()
-        #       higher total wins; equal totals = push (tie)
-        # TODO: return or print the result
+        winner = None
+        player_total = self.player_hand.get_total()
+        dealer_total = self.dealer_hand.get_total()
+        if self.player_hand.is_bust(): # if self.player_hand.is_bust()
+            winner = "dealer" # dealer wins
+        elif self.dealer_hand.is_bust(): # if self.dealer_hand.is_bust()
+            winner = "player" # player wins
+        else:
+            if player_total > dealer_total: # compare player_total vs dealer_total, higher total wins
+                winner = "player" 
+            elif dealer_total > player_total:
+                winner = "dealer"
+            else:
+                winner = "push" # equal totals = push (tie)
+        print(f"The dealer has: {dealer_total}\nThe player has: {player_total}")
+        return winner # return result
         pass
 
     def play_round(self):
-        # TODO: create a new Deck instance and assign it to self.deck
-        # TODO: call self.deck.shuffle()
-        # TODO: create new Hand instances for self.player_hand and self.dealer_hand
-        # TODO: deal 2 cards each to start (player and dealer)
-        # TODO: call self.player_turn()
-        # TODO: if the player didn't bust, call self.dealer_turn()
-        # TODO: call self.resolve_round()
-        # TODO: display/print the outcome of the round
-        pass
+        self.deck = Deck() # create a new Deck instance and assign it to self.deck
+        self.deck.shuffle() # call self.deck.shuffle()
+        self.player_hand = Hand()  # Player Hand instance
+        self.dealer_hand = Hand()  # Dealer Hand instance
+        count = 0
+        while count < 2: # deal 2 cards each to start (player and dealer)
+            card = self.deck.deal_card()
+            self.player_hand.add_card(card)
+            card = self.deck.deal_card()
+            self.dealer_hand.add_card(card)
+            count += 1
+        self.player_turn() # call self.player_turn()
+        if not self.player_hand.is_bust(): # if the player didn't bust
+            self.dealer_turn() # call self.dealer_turn()
+        winner = self.resolve_round() # call self.resolve_round()
+        print(f"The {winner} has won") # display/print the outcome of the round
+
+if __name__ == "__main__":
+    game = BlackjackGame()
+    game.play_round()
