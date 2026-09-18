@@ -41,39 +41,54 @@ class Hand:
         self.cards.append(card)
 
     def get_total(self):
-        # TODO: sum the value of every card in self.cards
-        # TODO: count how many of those cards are aces
-        # TODO: while the total is over 21 and there's an ace counted as 11,
-        #       subtract 10 from the total for each ace (11 -> 1) until total <= 21
-        #       or no more aces can be reduced
-        # TODO: return the final total
-        pass
+        total = 0
+        aces = 0
+        for card in self.cards: # Sum of the value of every card
+            total += card.value
+            if card.rank == "A": # counts how many  aces
+                aces += 1
+        while total > 21: # checks for bust due to high aces
+            if aces > 0: # reduces aces value to 1 if needed
+                total -= 10
+                aces -= 1
+            else:
+                break
+        # return the final total
+        return total
 
     def is_bust(self):
-        # TODO: get the current total using self.get_total()
-        # TODO: return True if that total is over 21, else False
-        pass
+        total = self.get_total() # get the current total using self.get_total()
+        if total > 21: # return True if  total is over 21, else False
+            return True
+        else:
+            return False
 
 
 class BlackjackGame:
     def __init__(self):
-        self.deck = None       # Deck instance
-        self.player_hand = None  # Hand instance
-        self.dealer_hand = None  # Hand instance
+        self.deck = Deck()       # Deck instance
+        self.player_hand = Hand()  # Hand instance
+        self.dealer_hand = Hand()  # Hand instance
 
     def player_turn(self):
-        # TODO: loop until the player stands or busts
-        # TODO: ask the player to hit or stand (input or button in pygame later)
-        # TODO: if hit, deal a card from self.deck and add it to self.player_hand
-        # TODO: check self.player_hand.is_bust() after each hit; stop looping if True
-        # TODO: if stand, break out of the loop
-        pass
+        bust = False
+        stand = False
+        while not bust and not stand: # loop until the player stands or busts
+            choice = input("Hit(H) or Stand(S)? ") # ask the player to hit or stand (input or button in pygame later)
+            choice = choice[0]
+            if choice == "S": # if stand
+                stand = True # break out of the loop
+            elif choice == "H": # if hit
+                card = self.deck.deal_card() # deal a card from deck 
+                self.player_hand.add_card(card) # add card to player hand
+                bust = self.player_hand.is_bust() # check for bust after each hit; stop looping if True
 
     def dealer_turn(self):
-        # TODO: loop while self.dealer_hand.get_total() is less than 17
-        # TODO: on each loop, deal a card from self.deck and add it to self.dealer_hand
-        # TODO: loop naturally stops once total is 17 or more (or dealer busts)
-        pass
+        bust = False
+        while (self.dealer_hand.get_total() < 17) and not bust: # loop while dealer total is less than 17
+            card = self.deck.deal_card() # deal a card from self.deck 
+            self.dealer_hand.add_card() # add it to self.dealer_hand
+            bust = self.dealer_hand.is_bust() # loop stops once dealer busts
 
     def resolve_round(self):
         # TODO: check if self.player_hand.is_bust() -> dealer wins

@@ -7,8 +7,9 @@
 - add_card() should append a Card to self.cards.
 
 # Implement Hand.get_total with ace logic and is_bust()
-- get_total() is the trickiest function — comeplete and test it on its own with a few hands before moving on.
+- get_total() is the trickiest function
 Sum the values of all cards, treating aces as 11 by default
+comeplete and test it on its own with a few hands before moving on.
 then subtract 10 for each ace as needed while the total is over 21.
 - is_bust() should call get_total() and return True if it's over 21
 
