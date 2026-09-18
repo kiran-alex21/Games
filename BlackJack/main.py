@@ -88,6 +88,16 @@ class BlackjackGame:
                 else:
                     print("No Cards left")
                 bust = self.player_hand.is_bust() # check for bust after each hit; stop looping if True
+    
+    def player_hit(self):
+        card = self.deck.deal_card() # deal a card from deck
+        if card != None:
+            self.player_hand.add_card(card) # add card to player hand
+        else:
+            print("No Cards left")
+
+    def player_turn_over(self):
+        return self.player_hand.is_bust() # check for bust and returns outcome
 
     def dealer_turn(self):
         while (self.dealer_hand.get_total() < 17): # loop while dealer total is less than 17
