@@ -88,7 +88,8 @@ class BlackjackGame:
                 else:
                     print("No Cards left")
                 bust = self.player_hand.is_bust() # check for bust after each hit; stop looping if True
-    
+        return stand
+
     def player_hit(self):
         card = self.deck.deal_card() # deal a card from deck
         if card != None:
@@ -126,7 +127,7 @@ class BlackjackGame:
         return winner # return result
         pass
 
-    def play_round(self):
+    def start_round(self):
         self.deck = Deck() # create a new Deck instance and assign it to self.deck
         self.deck.shuffle() # call self.deck.shuffle()
         self.player_hand = Hand()  # Player Hand instance
@@ -138,12 +139,19 @@ class BlackjackGame:
             card = self.deck.deal_card()
             self.dealer_hand.add_card(card)
             count += 1
-        self.player_turn() # call self.player_turn()
-        if not self.player_hand.is_bust(): # if the player didn't bust
+
+    def play_round(self):
+        stand = False
+        bust = False
+        while not stand and not bust:
+            stand = self.player_turn() # call self.player_turn()
+            bust = self.player_hand.is_bust()
             self.dealer_turn() # call self.dealer_turn()
-        winner = self.resolve_round() # call self.resolve_round()
-        print(f"The {winner} has won") # display/print the outcome of the round
+        else:
+            winner = self.resolve_round() # call self.resolve_round()
+            print(f"The {winner} has won") # display/print the outcome of the round
 
 if __name__ == "__main__":
     game = BlackjackGame()
+    game.start_round()
     game.play_round()
