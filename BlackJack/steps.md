@@ -43,9 +43,8 @@ Tie everything together:
 - call player_turn(), dealer_turn(), and resolve_round() in sequence,
 - print the result.
 
-Play a few full rounds in the terminal before starting the pygame visuals.
-
 # Pygame GUI
+
 ## Helpful sites
 - https://www.pygame.org/docs/
 - https://www.geeksforgeeks.org/python/pygame-tutorial/
@@ -96,11 +95,34 @@ dealer_turn() and resolve_round() don't need any changes — they aren't blockin
 - In "game_over" state, draw_text() the winner message
 - On Play Again click, call start_new_round() to reset state back to "player_turn"
 
-## Test end-to-end
-- Play a full round through the pygame window: deal, hit/stand, dealer turn, result, replay
-- Confirm the console version (main.py run directly) still works unaffected
+# Improvements to be made
 
-## Polish: card images and styling
-- Swap the plain-text cards for card image files with pygame.image.load()
-- Add hover effects on buttons
-- Tidy up fonts, colours, and spacing
+## Fix unreachable bust check after dealing
+- is_bust() check right after start_new_round() in gui.py (and its duplicate inside the main loop) can never trigger
+A freshly dealt 2-card hand can't bust — worst case (two aces) reduces to 12 via the ace logic.
+- Safe to delete both checks; resolve_round() already handles dealer busts during "dealer_turn"
+
+## Clean up resolve_round()
+- Remove the stray pass after return winner — it's unreachable dead code
+
+## Narrow the except in deal_card()
+- Bare except: currently swallows any error, not just an empty deck
+- Change to except IndexError: so other bugs aren't hidden silently
+
+## Simplify play_round() in the console version
+- The while not stand and not bust: loop is redundant since player_turn() already blocks until stand or bust
+- Can be simplified to a straight sequence: player_turn() → dealer_turn() (if not bust) → resolve_round()
+
+## Show the player's running total during their turn
+- draw_hand() only draws the cards; the total currently only appears at game over
+- Add a draw_text() call showing game.player_hand.get_total() above the player's row during "player_turn"
+This is a real usability gap, not just polish — right now the player has to add up ranks manually before deciding.
+
+## Hide the dealer's second card until their turn
+- Real blackjack hides the dealer's second card until the player finishes
+- Draw the dealer's first card normally and the second as a face-down placeholder rect until state == "dealer_turn"
+
+## Polish ideas (optional)
+- A short delay or reveal effect for the dealer's turn — right now dealer_turn() resolves instantly in one frame
+- Sound or a subtle colour flash on hit/stand clicks for feedback
+- Soft-17 rule variant (dealer hits on Ace + 6) for more casino authenticity — not required
