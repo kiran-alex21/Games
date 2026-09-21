@@ -101,7 +101,7 @@ class BlackjackGame:
         return self.player_hand.is_bust() # check for bust and returns outcome
 
     def dealer_turn(self):
-        while (self.dealer_hand.get_total() < 17): # loop while dealer total is less than 17
+        while (self.dealer_hand.get_total() < 17) and not self.player_hand.is_bust(): # loop while dealer total is less than 17
             card = self.deck.deal_card()
             if card != None: # deal a card from self.deck 
                 self.dealer_hand.add_card(card) # add it to self.dealer_hand

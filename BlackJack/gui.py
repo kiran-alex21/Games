@@ -44,6 +44,8 @@ def start_new_round():
 
 
 def draw_hand(hand, x, y):
+    # TODO: if dealer only draw first card - hide second card until game over
+    # TODO: add delay between drawing each card
     for i, card in enumerate(hand):  # enumerate gives us the index too
         CARD_W, CARD_H = 80, 100
         card_rect = pygame.Rect((x + i * 90), y, CARD_W, CARD_H) # set card background
@@ -86,7 +88,7 @@ def draw_text(text_render, rect):
     screen.blit(text_render, rect) # blit it onto the screen at the given position
 
 
-start_new_round()  # TODO: uncomment once start_new_round() is implemented, to deal the first hand
+start_new_round()  # deal the first hand
 if game.dealer_hand.is_bust():
     state = "game_over"
     
@@ -126,10 +128,13 @@ while running:
     if state != "game_over":
         draw_hand(player_hand, player_hand_x, player_hand_y) # call draw_hand() for the player's hand
         draw_hand(dealer_hand, dealer_hand_x, dealer_hand_y) # call draw_hand() for the dealer's hand
+    draw_buttons() # call draw_buttons()
+    if game.player_hand.is_bust():
+        state = "game_over"
     if game.dealer_hand.is_bust():
         state = "game_over"
-    draw_buttons() # call draw_buttons()
     if state == "game_over": # if state is "game_over"
+        # TODO: add dealers hand and delay for player to see cards.
         if winner != "push":
             winner_text = font.render(f"The {winner} Wins!", True, RESULT_COLOUR)
         else:
