@@ -29,7 +29,7 @@ class Deck:
     def deal_card(self): # removes + returns last card
         try:
             deal_card = self.cards.pop() # remove the last card
-        except:
+        except IndexError:
             deal_card = None
         return deal_card
 
@@ -125,7 +125,6 @@ class BlackjackGame:
                 winner = "push" # equal totals = push (tie)
         print(f"The dealer has: {dealer_total}\nThe player has: {player_total}")
         return winner # return result
-        pass
 
     def start_round(self):
         self.deck = Deck() # create a new Deck instance and assign it to self.deck
@@ -141,15 +140,12 @@ class BlackjackGame:
             count += 1
 
     def play_round(self):
-        stand = False
-        bust = False
-        while not stand and not bust:
-            stand = self.player_turn() # call self.player_turn()
-            bust = self.player_hand.is_bust()
+        self.player_turn() # call self.player_turn()
+        bust = self.player_hand.is_bust()
+        if not bust:
             self.dealer_turn() # call self.dealer_turn()
-        else:
-            winner = self.resolve_round() # call self.resolve_round()
-            print(f"The {winner} has won") # display/print the outcome of the round
+        winner = self.resolve_round() # call self.resolve_round()
+        print(f"The {winner} has won") # display/print the outcome of the round
 
 if __name__ == "__main__":
     game = BlackjackGame()

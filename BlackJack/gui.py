@@ -89,8 +89,6 @@ def draw_text(text_render, rect):
 
 
 start_new_round()  # deal the first hand
-if game.dealer_hand.is_bust():
-    state = "game_over"
     
 # ---------- Main loop ----------
 running = True
@@ -130,8 +128,6 @@ while running:
         draw_hand(dealer_hand, dealer_hand_x, dealer_hand_y) # call draw_hand() for the dealer's hand
     draw_buttons() # call draw_buttons()
     if game.player_hand.is_bust():
-        state = "game_over"
-    if game.dealer_hand.is_bust():
         state = "game_over"
     if state == "game_over": # if state is "game_over"
         # TODO: add dealers hand and delay for player to see cards.
