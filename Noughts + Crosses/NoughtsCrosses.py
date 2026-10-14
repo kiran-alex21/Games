@@ -87,7 +87,7 @@ def playerTurn(player, board):
 # single turn
 def round(player, board):
 	move = playerTurn(player, board) # gets players move
-	board[move[1]][move[0]] = player
+	board[move[1]][move[0]] = player #updates board with move
 	win= won(board) # check win
 	drew = draw(board) # check draw
 	if win:
