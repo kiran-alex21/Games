@@ -32,4 +32,3 @@ python main.py
 - `main.py` — game logic: `Card`, `Deck`, `Hand`, and `BlackjackGame` classes
 - `gui.py` — Pygame front end, imports and drives `BlackjackGame`
 - `Blackjack.exe` — packaged GUI game for Windows
-- `Blackjack.spec` — PyInstaller build configuration
